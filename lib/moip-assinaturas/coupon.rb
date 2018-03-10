@@ -5,13 +5,13 @@ module Moip::Assinaturas
 
       def list(opts={})
         response = Moip::Assinaturas::Client.list_coupon(opts)
-        array     = JSON.load(response.body).with_indifferent_access
+        array     = JSON.load(response.body)
 
         case response.code
         when 200
           return {
             success:  true,
-            coupons:  array[:coupons]
+            coupons:  array
           }
         else
           raise(WebServerResponseError, "Ocorreu um erro no retorno do webservice")
