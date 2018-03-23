@@ -1,0 +1,50 @@
+{
+  "subscription_code": "assinatura_boleto",
+  "amount": 100,
+  "_links": {
+    "boleto": {
+      "redirect_href": "https://checkout-sandbox.moip.com.br/boleto/PAY-S4YWH31TW8E8"
+    }
+  },
+  "due_date": {
+    "month": 8,
+    "hour": 0,
+    "year": 2020,
+    "day": 1,
+    "minute": 0,
+    "second": 0
+  },
+  "id": 4583997,
+  "creation_date": {
+    "month": 8,
+    "hour": 10,
+    "year": 2017,
+    "day": 18,
+    "minute": 52,
+    "second": 24
+  },
+  "occurrence": 1,
+  "plan": {
+    "code": "13443245",
+    "name": "Plan Name"
+  },
+  "items": [
+    {
+      "amount": 100,
+      "type": "Subscription Fee"
+    },
+    {
+      "amount": 0,
+      "type": "Hiring Fee"
+    }
+  ],
+  "customer": {
+    "code": "customer_code",
+    "fullname": "José Silva",
+    "email": "josesilva@email.com"
+  },
+  "status": {
+    "code": 2,
+    "description": "Aguardando confirmação"
+  }
+}

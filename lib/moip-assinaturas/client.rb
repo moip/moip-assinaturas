@@ -137,6 +137,11 @@ module Moip::Assinaturas
         peform_action!(:post, "/invoices/#{id}/retry", opts, true)
       end
 
+      def generate_invoice_slip(invoice_id, opts = {})
+        prepare_options(opts, { headers: { 'Content-Type' => 'application/json' } })
+        peform_action!(:post, "/invoices/#{invoice_id}/boletos", opts, true)
+      end
+
       def list_payments(invoice_id, opts={})
         prepare_options(opts, { headers: { 'Content-Type' => 'application/json' } })
         peform_action!(:get, "/invoices/#{invoice_id}/payments", opts, true)

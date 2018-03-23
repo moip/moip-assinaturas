@@ -68,6 +68,20 @@ describe Moip::Assinaturas::Invoice do
       status: [404, 'not found']
     )
 
+    FakeWeb.register_uri(
+      :post,
+      "https://TOKEN:KEY@api.moip.com.br/assinaturas/v1/invoices/INV-998889/boletos",
+      body:  File.join(File.dirname(__FILE__), '..', 'fixtures', 'generate_bank_slip.json'),
+      status: [200, 'OK']
+    )
+
+    FakeWeb.register_uri(
+      :post,
+      "https://TOKEN:KEY@api.moip.com.br/assinaturas/v1/invoices/INV-998879/boletos",
+      body:  '',
+      status: [404, 'not found']
+    )
+
   end
 
   it "should list all invoices from a subscription" do
@@ -97,6 +111,21 @@ describe Moip::Assinaturas::Invoice do
 
     it "should not retry Invoice" do
       request = Moip::Assinaturas::Invoice.retry "INV-998779"
+      expect(request[:success]).to be_falsey
+    end
+  end
+
+  context "generate new invoice bank slip" do
+    it "should generate bank slip" do
+      request = Moip::Assinaturas::Invoice.generate_slip "INV-998889", { day: 1, month: 8, year: 2020 }
+      expect(request[:success]).to be_truthy
+      expect(request[:bank_slip][:due_date][:day]).to eq 1
+      expect(request[:bank_slip][:due_date][:month]).to eq 8
+      expect(request[:bank_slip][:due_date][:year]).to eq 2020
+    end
+
+    it "should not generate bank slip" do
+      request = Moip::Assinaturas::Invoice.generate_slip "INV-998879"
       expect(request[:success]).to be_falsey
     end
   end

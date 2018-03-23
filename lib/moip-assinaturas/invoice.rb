@@ -60,6 +60,33 @@ module Moip::Assinaturas
         end
       end
 
+      def generate_slip(id, opts = {})
+        response = Moip::Assinaturas::Client.generate_invoice_slip(id, opts)
+        hash     = JSON.load response.body
+        hash     = hash.with_indifferent_access if hash
+
+        case response.code
+        when 200
+          return {
+            success:  true,
+            bank_slip: hash
+          }
+        when 400
+          return {
+            success: false,
+            message: hash['message'],
+            errors:  hash['errors']
+          }
+        when 404
+          return {
+            success: false,
+            message: 'not found'
+          }
+        else
+          raise(WebServerResponseError, "Ocorreu um erro no retorno do webservice")
+        end
+      end
+
       def notify(invoice_id, opts = {})
         response = Moip::Assinaturas::Client.notify_invoice(invoice_id, opts)
         hash     = JSON.load(response.body)
