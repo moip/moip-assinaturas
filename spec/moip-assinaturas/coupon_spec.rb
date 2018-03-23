@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe Moip::Assinaturas::Coupon do 
+describe Moip::Assinaturas::Coupon do
 
   before do
     @coupon = {
