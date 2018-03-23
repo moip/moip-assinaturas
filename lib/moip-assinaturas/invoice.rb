@@ -55,6 +55,11 @@ module Moip::Assinaturas
             message: hash['message'],
             errors:  hash['errors']
           }
+        when 404
+          return {
+            success: false,
+            message: 'not found'
+          }
         else
           raise(WebServerResponseError, "Ocorreu um erro no retorno do webservice")
         end
@@ -73,6 +78,11 @@ module Moip::Assinaturas
             success: false,
             message: hash['message'],
             errors:  hash['errors']
+          }
+        when 404
+          return {
+            success: false,
+            message: 'not found'
           }
         else
           raise(WebServerResponseError, "Ocorreu um erro no retorno do webservice")

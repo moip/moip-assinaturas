@@ -3,6 +3,7 @@ require 'fakeweb'
 require 'pry'
 require 'moip-assinaturas'
 require 'simplecov'
+require 'rspec/its'
 
 SimpleCov.start
 
@@ -11,7 +12,7 @@ FakeWeb.allow_net_connect = false
 RSpec.configure do |config|
   config.color = true
   config.formatter     = 'documentation'
-  
+
   config.before(:suite) do
     Moip::Assinaturas.config do |config|
       config.token = "TOKEN"
